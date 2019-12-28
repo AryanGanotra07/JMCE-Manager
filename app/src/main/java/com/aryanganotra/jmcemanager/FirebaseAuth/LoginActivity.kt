@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import com.aryanganotra.jmcemanager.MainActivity
 import com.aryanganotra.jmcemanager.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.login_activity.*
 
 class LoginActivity : AppCompatActivity() {
     val RC_SIGN_IN = 0
@@ -22,12 +24,21 @@ class LoginActivity : AppCompatActivity() {
         )
 
 
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .build(),
-            RC_SIGN_IN)
+//        startActivityForResult(
+//            AuthUI.getInstance()
+//                .createSignInIntentBuilder()
+//                .setAvailableProviders(providers)
+//                .build(),
+//            RC_SIGN_IN)
+
+        emailsign.setOnClickListener {
+            startActivityForResult(
+                AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setAvailableProviders(providers)
+                    .build(),
+                RC_SIGN_IN)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -38,10 +49,13 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
+                Snackbar.make(view, "Try again", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 // ...
             } else {
-               // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                 //   .setAction("Action", null).show()
+                Snackbar.make(view, "Try again", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
             }
         }
     }
