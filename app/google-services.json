@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "638161922699",
+    "firebase_url": "https://jmc-economics.firebaseio.com",
+    "project_id": "jmc-economics",
+    "storage_bucket": "jmc-economics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638161922699:android:67f4be512f8151d2",
+        "android_client_info": {
+          "package_name": "com.aryanganotra.jmceconomics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638161922699-lcpq66e7fikk7ei1jc8uj33ddeg84rh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aryanganotra.jmceconomics",
+            "certificate_hash": "1e7bab757b200e8ff379844c93a8cfb2fffc3a33"
+          }
+        },
+        {
+          "client_id": "638161922699-i0kit2h9qfn8ja7d62t1tq0i2o7jnear.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhkkHJ1ZmpHeTSscOMN5ESm789FB8os48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638161922699-i0kit2h9qfn8ja7d62t1tq0i2o7jnear.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638161922699:android:0bcc43d71c86dfd28a828e",
+        "android_client_info": {
+          "package_name": "com.aryanganotra.jmcemanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638161922699-lg864eod93l9bl9h6ee833gstjgmg9p7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aryanganotra.jmcemanager",
+            "certificate_hash": "1e7bab757b200e8ff379844c93a8cfb2fffc3a33"
+          }
+        },
+        {
+          "client_id": "638161922699-i0kit2h9qfn8ja7d62t1tq0i2o7jnear.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhkkHJ1ZmpHeTSscOMN5ESm789FB8os48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638161922699-i0kit2h9qfn8ja7d62t1tq0i2o7jnear.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
