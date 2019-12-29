@@ -1,6 +1,7 @@
 package com.aryanganotra.jmcemanager.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,10 +30,14 @@ class PlaceholderFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
-        val textView: TextView = root.findViewById(R.id.section_label)
+       // val textView: TextView = root.findViewById(R.id.section_label)
         pageViewModel.text.observe(this, Observer<String> {
-            textView.text = it
+         //   textView.text = it
         })
+        pageViewModel.getNotesLiveData().observe(this, Observer {
+            Log.i("LengthNotes",it.size.toString())
+        })
+
         return root
     }
 

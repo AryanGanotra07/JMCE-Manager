@@ -3,9 +3,8 @@ package com.aryanganotra.jmcemanager.FirebaseAuth
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import com.aryanganotra.jmcemanager.MainActivity
+import com.aryanganotra.jmcemanager.ui.main.MainActivity
 import com.aryanganotra.jmcemanager.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -52,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
                 Snackbar.make(view, "Try again", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
                 // ...
             } else {
                 Snackbar.make(view, "Try again", Snackbar.LENGTH_LONG)

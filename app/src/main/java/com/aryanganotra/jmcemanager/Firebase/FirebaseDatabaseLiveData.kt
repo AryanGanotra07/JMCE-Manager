@@ -1,5 +1,6 @@
 package com.aryanganotra.jmcemanager.Firebase
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.google.firebase.database.DataSnapshot
@@ -49,6 +50,7 @@ class FirebaseDatabaseLiveData(var query: DatabaseReference?) : LiveData<DataSna
             value = dataSnapshot
         }
 
+        @SuppressLint("LongLogTag")
         override fun onCancelled(databaseError: DatabaseError) {
             Log.e(LOG_TAB, "Can't listen to query $query", databaseError.toException())
         }
