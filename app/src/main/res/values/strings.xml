@@ -6,5 +6,6 @@
     <string name="tab_text_4">Fourth Semester</string>
     <string name="tab_text_5">Fifth Semester</string>
     <string name="tab_text_6">Sixth Semester</string>
+    <string name="add_course">Add Course</string>
 
 </resources>

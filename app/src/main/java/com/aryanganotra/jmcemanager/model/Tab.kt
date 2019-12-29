@@ -12,7 +12,7 @@ data class Tab(var year : String = "", var courses : List<Course> = arrayListOf(
 
     @Keep
      @Parcelize
-    data class Course(var courseName : String = "" , var notes : List<Note> = arrayListOf()) : Parcelable{
+    data class Course(var id : String = "",var courseName : String = "" , var notes : List<Note> = arrayListOf()) : Parcelable{
 
         @Keep
          @Parcelize

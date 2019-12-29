@@ -8,6 +8,10 @@
     android:padding="12dp"
     tools:context=".ui.main.PlaceholderFragment">
 
+
+
+
+
 <!--    <TextView-->
 <!--        android:id="@+id/section_label"-->
 <!--        android:layout_width="wrap_content"-->
@@ -29,5 +33,12 @@
         android:id="@+id/recycler_view">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_circular"
+        android:indeterminateBehavior="cycle"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

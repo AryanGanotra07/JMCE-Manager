@@ -1,5 +1,6 @@
 package com.aryanganotra.jmcemanager.ui.main
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,18 +11,29 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.aryanganotra.jmcemanager.FirebaseAuth.LoginActivity
 import com.aryanganotra.jmcemanager.R
+import com.aryanganotra.jmcemanager.activities.AddCourseActivity
+import com.aryanganotra.jmcemanager.model.Course
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.login_activity.*
 
 class MainActivity : AppCompatActivity() {
 
-
+    private lateinit var pageViewModel: PageViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+//        supportActionBar!!.setDisplayShowHomeEnabled(true)
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        pageViewModel = ViewModelProviders.of(this).get(PageViewModel::class.java)
+
+
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
@@ -30,8 +42,9 @@ class MainActivity : AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            val intent = Intent(this@MainActivity,AddCourseActivity::class.java)
+            intent.putExtra("year",viewPager.currentItem)
+            startActivityForResult(intent,ADD_COURSE)
         }
 
 
@@ -40,11 +53,12 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private val subject = "JMCE-Manager-Support"
         private val emailids = arrayOf("aryanganotra7@gmail.com")
+        private val ADD_COURSE = 12
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.main_menu, menu)
+        menuInflater.inflate(R.menu.main_menu,menu)
         return true
     }
 
@@ -73,5 +87,19 @@ class MainActivity : AppCompatActivity() {
 
         startActivity(intent)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_COURSE)
+        {
+            if (resultCode == Activity.RESULT_OK)
+            {
+                val bundle = data?.getBundleExtra("course")
+                val course = bundle?.getParcelable<Course>("course")
+                pageViewModel.addCourse(course!!)
+
+            }
+        }
     }
 }
