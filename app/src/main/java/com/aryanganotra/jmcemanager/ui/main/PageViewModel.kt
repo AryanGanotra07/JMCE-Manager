@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.aryanganotra.jmcemanager.Firebase.FirebaseRepo
 import com.aryanganotra.jmcemanager.model.Course
 import com.aryanganotra.jmcemanager.model.Note
-import com.aryanganotra.jmcemanager.model.Tab
 
 class PageViewModel : ViewModel() {
 
@@ -41,7 +40,7 @@ class PageViewModel : ViewModel() {
         repo.addNote(note)
     }
 
-    fun deleteNode(note: Note)
+    fun deleteNote(note: Note)
     {
         repo.deleteNote(note)
     }
@@ -49,5 +48,10 @@ class PageViewModel : ViewModel() {
     fun getNotesLiveData() : MediatorLiveData<ArrayList<Note>>
     {
         return repo.getNotesLiveData()
+    }
+
+    fun editNote(note : Note)
+    {
+        return repo.editNote(note)
     }
  }

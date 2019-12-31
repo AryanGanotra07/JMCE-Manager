@@ -7,20 +7,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aryanganotra.jmcemanager.R
-import com.aryanganotra.jmcemanager.listeners.DeleteNoteCallback
-import com.aryanganotra.jmcemanager.listeners.NoteClickCallback
-import com.aryanganotra.jmcemanager.model.Note
+import com.aryanganotra.jmcemanager.listeners.DeleteCourseCallback
+import com.aryanganotra.jmcemanager.listeners.OnCourseClick
+import com.aryanganotra.jmcemanager.model.Course
 import kotlinx.android.synthetic.main.subject_item.view.*
 
-class NoteListAdapter(val deleteNoteCallback : DeleteNoteCallback, val noteClickCallback: NoteClickCallback) : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
+class CourseListAdapter(val onCourseClick: OnCourseClick) : RecyclerView.Adapter<CourseListAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val note_name = itemView.findViewById<TextView>(R.id.subject_name)
+        val subject_name = itemView.findViewById<TextView>(R.id.subject_name)
         val delete_btn = itemView.findViewById<ImageView>(R.id.delete_btn)
 
 
     }
 
-    private lateinit var notes : ArrayList<Note>
+    private lateinit var courses : ArrayList<Course>
     //private lateinit var callback : NotesFragment.CourseClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,8 +39,8 @@ class NoteListAdapter(val deleteNoteCallback : DeleteNoteCallback, val noteClick
 //    }
 
     override fun getItemCount(): Int {
-       if (::notes.isInitialized){
-           return notes.size
+       if (::courses.isInitialized){
+           return courses.size
        }
         else{
            return 0
@@ -51,18 +51,15 @@ class NoteListAdapter(val deleteNoteCallback : DeleteNoteCallback, val noteClick
 
 
 
-        holder.note_name.setText(notes.get(position).noteName)
-        holder.itemView.delete_btn.setOnClickListener {
-            deleteNoteCallback.onDeleteNote(notes.get(position))
-        }
+        holder.subject_name.setText(courses.get(position).courseName)
         holder.itemView.setOnClickListener {
-            noteClickCallback.onNoteClick(notes.get(position))
+            onCourseClick.onCourseClick(courses.get(position))
         }
 
     }
 
-    fun setNotes(notes : ArrayList<Note>){
-        this.notes = notes
+    fun setCourses(courses : ArrayList<Course>){
+        this.courses = courses
         notifyDataSetChanged()
     }
 

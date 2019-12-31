@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel::class.java)
 
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager,6)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = this.findViewById(R.id.tabs)

@@ -34,7 +34,7 @@ class AddCourseActivity : AppCompatActivity() {
         val adapter : ArrayAdapter<String> = ArrayAdapter(this, R.layout.spinner_item,list)
         spinner.adapter = adapter
 
-        val year = intent.getIntExtra("year",1)
+        val year = intent.getIntExtra("year",0)
         spinner.setSelection(year)
 
         save_btn.setOnClickListener {

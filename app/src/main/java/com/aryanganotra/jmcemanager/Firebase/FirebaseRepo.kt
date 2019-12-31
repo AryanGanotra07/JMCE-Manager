@@ -1,16 +1,16 @@
 package com.aryanganotra.jmcemanager.Firebase
 
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import com.aryanganotra.jmcemanager.application.AppApplication
 import com.aryanganotra.jmcemanager.model.Course
 import com.aryanganotra.jmcemanager.model.Note
-import com.aryanganotra.jmcemanager.model.Tab
 import com.aryanganotra.jmcemanager.utils.toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import javax.security.auth.Subject
+import com.google.firebase.database.ValueEventListener
 
 class FirebaseRepo() {
 
@@ -67,13 +67,17 @@ class FirebaseRepo() {
 
     fun deleteCourse(course : Course)
     {
-        REF.child("courses")
-            .child(course.id)
-            .removeValue()
-            .addOnCompleteListener {
-                if (it.isSuccessful) AppApplication?.context?.toast("Deleted course")
-                else AppApplication?.context?.toast("Failed")
-            }
+        if (REF.child("courses")!=null) {
+            REF.child("courses")
+                .child(course.id)
+                .removeValue()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        AppApplication?.context?.toast("Deleted course")
+                        deleteAllNotesWithSubId(course.id)
+                    } else AppApplication?.context?.toast("Failed")
+                }
+        }
 
     }
 
@@ -97,31 +101,73 @@ class FirebaseRepo() {
 
     }
 
+    private fun deleteAllNotesWithSubId(subId : String)
+    {
+        if (REF.child("notes")!=null) {
+            REF.child("notes").orderByChild("subId")
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError) {
+                        AppApplication?.context?.toast("Some error occurred. Please try again")
+                    }
+
+                    override fun onDataChange(p0: DataSnapshot) {
+                        if (p0 != null) {
+                            if (p0.hasChildren()) {
+                                for (noteSnap in p0.children) {
+                                    val note: Note = noteSnap.getValue(Note::class.java)!!
+                                    deleteNote(note)
+
+                                }
+
+                            }
+                        }
+                    }
+
+                })
+        }
+    }
+
     fun addNote(note : Note)
     {
-        val key = REF.child("notes")?.push()?.key
-        if (key != null) {
-            note.id = key
-        }
-        val childUpdates = HashMap<String, Any>()
-        childUpdates["/notes/$key"] = note.toMap()
-        REF?.updateChildren(childUpdates)?.addOnCompleteListener {
-            if (it.isSuccessful) {
-                AppApplication.context?.toast("Note Added")
-            } else AppApplication.context?.toast("Error in adding note")
-        }
+
+            val key = REF.child("notes")?.push()?.key
+            if (key != null) {
+                note.id = key
+            }
+            val childUpdates = HashMap<String, Any>()
+            childUpdates["/notes/$key"] = note.toMap()
+            REF?.updateChildren(childUpdates)?.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    AppApplication.context?.toast("Note Added")
+                } else AppApplication.context?.toast("Error in adding note")
+            }
+
     }
 
     fun deleteNote(note : Note)
     {
-        REF.child("notes")
-            .child(note.id)
-            .removeValue()
-            .addOnCompleteListener {
-                if (it.isSuccessful) AppApplication?.context?.toast("Deleted note")
-                else AppApplication?.context?.toast("Failed")
-            }
+        if (REF.child("notes")!=null) {
+            REF.child("notes")
+                .child(note.id)
+                .removeValue()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) AppApplication?.context?.toast("Deleted note")
+                    else AppApplication?.context?.toast("Failed")
+                }
+        }
 
+    }
+
+    fun editNote(note: Note) {
+        if (REF.child("notes") != null) {
+            REF.child("notes")
+                .child(note.id)
+                .setValue(note)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) AppApplication?.context?.toast("Note Updated")
+                    else AppApplication?.context?.toast("Failed")
+                }
+        }
     }
 
     }

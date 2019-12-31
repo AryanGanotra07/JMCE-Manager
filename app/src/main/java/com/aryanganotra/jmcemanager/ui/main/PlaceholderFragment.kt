@@ -16,6 +16,7 @@ import com.aryanganotra.jmcemanager.FirebaseAuth.LoginActivity
 import com.aryanganotra.jmcemanager.R
 import com.aryanganotra.jmcemanager.adapters.SubjectListAdapter
 import com.aryanganotra.jmcemanager.listeners.DeleteCourseCallback
+import com.aryanganotra.jmcemanager.listeners.OnCourseClick
 import com.aryanganotra.jmcemanager.model.Course
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -24,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 /**
  * A placeholder fragment containing a simple view.
  */
-class PlaceholderFragment : Fragment(), DeleteCourseCallback {
+class PlaceholderFragment : Fragment(), DeleteCourseCallback, OnCourseClick {
 
 
 
@@ -45,7 +46,7 @@ class PlaceholderFragment : Fragment(), DeleteCourseCallback {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
-        val adapter : SubjectListAdapter = SubjectListAdapter(this)
+        val adapter : SubjectListAdapter = SubjectListAdapter(this, this)
         root.recycler_view.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
         root.recycler_view.adapter = adapter
 
@@ -57,8 +58,29 @@ class PlaceholderFragment : Fragment(), DeleteCourseCallback {
 //        })
       pageViewModel.getCoursesLiveData().observe(this, Observer {
           root.progress_circular.visibility = View.GONE
-          val courses = it.filter { course -> course.year == pageViewModel.getIndex() }
-          adapter.setCourses(courses as ArrayList<Course>)
+          if (it!=null)
+          {
+              val courses = it.filter { course -> course.year == pageViewModel.getIndex() }
+              if (courses.isNullOrEmpty())
+              {
+                  nodata.visibility = View.VISIBLE
+                  recycler_view.visibility  = View.GONE
+              }
+              else
+              {
+                  nodata.visibility = View.GONE
+                  recycler_view.visibility  = View.VISIBLE
+              }
+              adapter.setCourses(courses as ArrayList<Course>)
+          }
+          else
+          {
+              nodata.visibility = View.VISIBLE
+              recycler_view.visibility  = View.GONE
+              adapter.setCourses(ArrayList())
+          }
+
+
       })
         //var index = 1
 
@@ -96,6 +118,13 @@ class PlaceholderFragment : Fragment(), DeleteCourseCallback {
 
     override fun onDeleteCourse(course: Course) {
         pageViewModel.deleteCourse(course)
+    }
+
+    override fun onCourseClick(course: Course) {
+        val i = Intent(context,NotesListActivity::class.java)
+        i.putExtra("sub_id",course.id)
+        i.putExtra("course_name",course.courseName)
+        startActivity(i)
     }
 //
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

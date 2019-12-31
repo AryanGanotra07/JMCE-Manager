@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.aryanganotra.jmcemanager">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".application.AppApplication"
@@ -10,8 +15,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.NotesListActivity"></activity>
-        <activity android:name=".activities.AddCourseActivity"></activity>
+        <activity android:name=".activities.CourseListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/pdf" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.EditNoteActivity" />
+        <activity android:name=".activities.AddNoteActivity">
+        </activity>
+        <activity android:name=".ui.main.NotesListActivity" />
+        <activity android:name=".activities.AddCourseActivity" />
         <activity android:name=".FirebaseAuth.LoginActivity" />
         <activity
             android:name=".ui.main.MainActivity"
