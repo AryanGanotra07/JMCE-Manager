@@ -105,6 +105,7 @@ class FirebaseRepo() {
     {
         if (REF.child("notes")!=null) {
             REF.child("notes").orderByChild("subId")
+                .equalTo(subId)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
                         AppApplication?.context?.toast("Some error occurred. Please try again")
