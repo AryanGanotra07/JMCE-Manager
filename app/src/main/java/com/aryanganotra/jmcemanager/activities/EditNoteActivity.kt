@@ -1,29 +1,30 @@
 package com.aryanganotra.jmcemanager.activities
 
 import android.Manifest
+import android.R.attr.data
 import android.app.Activity
 import android.app.DownloadManager
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.provider.OpenableColumns
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aryanganotra.jmcemanager.R
 import com.aryanganotra.jmcemanager.application.AppApplication
 import com.aryanganotra.jmcemanager.model.Note
 import com.aryanganotra.jmcemanager.utils.toast
-import kotlinx.android.synthetic.main.activity_add_note.*
 import kotlinx.android.synthetic.main.activity_edit_note.*
-import kotlinx.android.synthetic.main.activity_edit_note.cancel_btn
-import kotlinx.android.synthetic.main.activity_edit_note.url_et
-import kotlinx.android.synthetic.main.activity_edit_note.name_et
-import java.lang.Exception
+import java.io.File
 import java.util.concurrent.Executors
+
 
 class EditNoteActivity : AppCompatActivity() {
     private val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: Int = 2
@@ -74,17 +75,18 @@ class EditNoteActivity : AppCompatActivity() {
     private fun startDownload (url : String){
         if (checkStoragePermission(MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE)) {
             try {
+                val filename = getFileName(url)
                 val request: DownloadManager.Request = DownloadManager.Request(Uri.parse(url))
                 val executors = Executors.newCachedThreadPool()
                 val manager =
                     application.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
                 request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-                request.setTitle("Download")
+                request.setTitle(filename)
                 request.setDescription(application.resources.getString(R.string.app_name))
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 request.setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_DOWNLOADS,
-                    "${System.currentTimeMillis()}"
+                    filename
                 )
                 try {
                     executors.execute {
@@ -106,6 +108,32 @@ class EditNoteActivity : AppCompatActivity() {
                 AppApplication?.context?.toast(e.message.toString())
             }
         }
+
+    }
+
+    private fun getFileName(url : String) : String{
+        val uri = Uri.parse(url)
+        val uriString = uri.toString()
+        val myFile = File(uriString)
+        val path: String = myFile.getAbsolutePath()
+        var displayName: String = System.currentTimeMillis().toString()
+
+        if (uriString.startsWith("content://")) {
+            var cursor: Cursor? = null
+            try {
+                cursor = this.getContentResolver().query(uri, null, null, null, null)
+                if (cursor != null && cursor.moveToFirst()) {
+                    displayName =
+                        cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                }
+            } finally {
+                cursor!!.close()
+            }
+        } else if (uriString.startsWith("file://")) {
+            displayName = myFile.getName()
+        }
+
+        return displayName+".pdf"
 
     }
 
