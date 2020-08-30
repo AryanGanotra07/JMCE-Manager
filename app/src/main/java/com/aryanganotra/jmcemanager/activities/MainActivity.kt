@@ -1,4 +1,4 @@
-package com.aryanganotra.jmcemanager.ui.main
+package com.aryanganotra.jmcemanager.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -7,18 +7,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import com.aryanganotra.jmcemanager.FirebaseAuth.LoginActivity
 import com.aryanganotra.jmcemanager.R
-import com.aryanganotra.jmcemanager.activities.AddCourseActivity
+import com.aryanganotra.jmcemanager.activities.auth.LoginActivity
+import com.aryanganotra.jmcemanager.activities.courses.AddCourseActivity
+import com.aryanganotra.jmcemanager.adapters.SectionsPagerAdapter
 import com.aryanganotra.jmcemanager.model.Course
+import com.aryanganotra.jmcemanager.viewmodels.PageViewModel
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.login_activity.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +33,12 @@ class MainActivity : AppCompatActivity() {
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel::class.java)
 
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager,6)
+        val sectionsPagerAdapter =
+            SectionsPagerAdapter(
+                this,
+                supportFragmentManager,
+                6
+            )
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = this.findViewById(R.id.tabs)
@@ -42,9 +46,12 @@ class MainActivity : AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
 
         fab.setOnClickListener { view ->
-            val intent = Intent(this@MainActivity,AddCourseActivity::class.java)
+            val intent = Intent(this@MainActivity,
+                AddCourseActivity::class.java)
             intent.putExtra("year",viewPager.currentItem)
-            startActivityForResult(intent,ADD_COURSE)
+            startActivityForResult(intent,
+                ADD_COURSE
+            )
         }
 
 
@@ -71,7 +78,10 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
             R.id.contact -> {
-                composeEmail(emailids, subject)
+                composeEmail(
+                    emailids,
+                    subject
+                )
             }
         }
         return true

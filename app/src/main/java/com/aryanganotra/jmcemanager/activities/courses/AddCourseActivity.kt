@@ -1,14 +1,12 @@
-package com.aryanganotra.jmcemanager.activities
+package com.aryanganotra.jmcemanager.activities.courses
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import com.aryanganotra.jmcemanager.R
 import com.aryanganotra.jmcemanager.model.Course
-import com.aryanganotra.jmcemanager.ui.main.PageViewModel
 import kotlinx.android.synthetic.main.activity_add_course.*
 
 

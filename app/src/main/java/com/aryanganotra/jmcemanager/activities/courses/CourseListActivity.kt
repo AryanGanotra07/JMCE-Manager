@@ -1,4 +1,4 @@
-package com.aryanganotra.jmcemanager.activities
+package com.aryanganotra.jmcemanager.activities.courses
 
 import android.app.Activity
 import android.content.Intent
@@ -6,23 +6,20 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aryanganotra.jmcemanager.R
+import com.aryanganotra.jmcemanager.activities.MainActivity
+import com.aryanganotra.jmcemanager.activities.notes.AddNoteActivity
 import com.aryanganotra.jmcemanager.adapters.CourseListAdapter
-import com.aryanganotra.jmcemanager.adapters.SubjectListAdapter
 import com.aryanganotra.jmcemanager.application.AppApplication.Companion.context
 import com.aryanganotra.jmcemanager.listeners.OnCourseClick
 import com.aryanganotra.jmcemanager.model.Course
 import com.aryanganotra.jmcemanager.model.Note
-import com.aryanganotra.jmcemanager.ui.main.MainActivity
-import com.aryanganotra.jmcemanager.ui.main.PageViewModel
-import com.aryanganotra.jmcemanager.ui.main.PlaceholderFragment
+import com.aryanganotra.jmcemanager.viewmodels.PageViewModel
 import kotlinx.android.synthetic.main.activity_course_list.*
 import kotlinx.android.synthetic.main.activity_course_list.nodata
 import kotlinx.android.synthetic.main.activity_course_list.recycler_view
@@ -70,7 +67,8 @@ class CourseListActivity : AppCompatActivity(), OnCourseClick {
 
         })
         fab.setOnClickListener {
-            val intent = Intent(this@CourseListActivity,AddCourseActivity::class.java)
+            val intent = Intent(this@CourseListActivity,
+                AddCourseActivity::class.java)
             intent.putExtra("year",0)
             startActivityForResult(intent, ADD_COURSE)
         }
@@ -86,7 +84,8 @@ class CourseListActivity : AppCompatActivity(), OnCourseClick {
                 val bundle = data?.getBundleExtra("note")
                 val note = bundle?.getParcelable<Note>("note")
                 pageViewModel.addNote(note!!)
-                startActivity(Intent(this@CourseListActivity,MainActivity::class.java))
+                startActivity(Intent(this@CourseListActivity,
+                    MainActivity::class.java))
                 finish()
 
             }

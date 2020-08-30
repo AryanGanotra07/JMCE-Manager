@@ -1,24 +1,20 @@
-package com.aryanganotra.jmcemanager.ui.main
+package com.aryanganotra.jmcemanager.fragments
 
 import android.content.Intent
-import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aryanganotra.jmcemanager.FirebaseAuth.LoginActivity
 import com.aryanganotra.jmcemanager.R
+import com.aryanganotra.jmcemanager.activities.notes.NotesListActivity
 import com.aryanganotra.jmcemanager.adapters.SubjectListAdapter
 import com.aryanganotra.jmcemanager.listeners.DeleteCourseCallback
 import com.aryanganotra.jmcemanager.listeners.OnCourseClick
 import com.aryanganotra.jmcemanager.model.Course
-import com.google.firebase.auth.FirebaseAuth
+import com.aryanganotra.jmcemanager.viewmodels.PageViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
@@ -121,7 +117,8 @@ class PlaceholderFragment : Fragment(), DeleteCourseCallback, OnCourseClick {
     }
 
     override fun onCourseClick(course: Course) {
-        val i = Intent(context,NotesListActivity::class.java)
+        val i = Intent(context,
+            NotesListActivity::class.java)
         i.putExtra("sub_id",course.id)
         i.putExtra("course_name",course.courseName)
         startActivity(i)

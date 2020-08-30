@@ -1,4 +1,4 @@
-package com.aryanganotra.jmcemanager.activities
+package com.aryanganotra.jmcemanager.activities.notes
 
 import android.Manifest
 import android.app.Activity
@@ -11,22 +11,17 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Parcelable
 import android.provider.OpenableColumns
-import android.util.Log
 import android.view.View
 import android.widget.RadioButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toFile
 import com.aryanganotra.jmcemanager.R
 import com.aryanganotra.jmcemanager.application.AppApplication
 import com.aryanganotra.jmcemanager.model.Note
 import com.aryanganotra.jmcemanager.utils.toast
 import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.OnProgressListener
 import com.google.firebase.storage.StorageReference
@@ -34,7 +29,6 @@ import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_add_note.*
 import java.io.File
 import java.lang.Exception
-import java.net.URI
 import java.util.concurrent.Executors
 import kotlin.math.roundToInt
 

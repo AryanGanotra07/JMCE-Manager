@@ -1,11 +1,11 @@
-package com.aryanganotra.jmcemanager.FirebaseAuth
+package com.aryanganotra.jmcemanager.activities.auth
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.aryanganotra.jmcemanager.ui.main.MainActivity
 import com.aryanganotra.jmcemanager.R
+import com.aryanganotra.jmcemanager.activities.MainActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.snackbar.Snackbar
@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
                 AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers)
+                    .setTosAndPrivacyPolicyUrls("https://sites.google.com/view/jmceconomicsapp","https://sites.google.com/view/jmceconomicsapp")
                     .build(),
                 RC_SIGN_IN)
         }

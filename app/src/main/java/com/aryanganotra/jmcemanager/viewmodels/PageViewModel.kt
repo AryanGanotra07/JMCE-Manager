@@ -1,7 +1,7 @@
-package com.aryanganotra.jmcemanager.ui.main
+package com.aryanganotra.jmcemanager.viewmodels
 
 import androidx.lifecycle.*
-import com.aryanganotra.jmcemanager.Firebase.FirebaseRepo
+import com.aryanganotra.jmcemanager.firebaserealtimedata.FirebaseRepo
 import com.aryanganotra.jmcemanager.model.Course
 import com.aryanganotra.jmcemanager.model.Note
 

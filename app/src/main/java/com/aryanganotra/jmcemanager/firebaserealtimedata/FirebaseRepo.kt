@@ -1,6 +1,5 @@
-package com.aryanganotra.jmcemanager.Firebase
+package com.aryanganotra.jmcemanager.firebaserealtimedata
 
-import android.widget.Toast
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import com.aryanganotra.jmcemanager.application.AppApplication

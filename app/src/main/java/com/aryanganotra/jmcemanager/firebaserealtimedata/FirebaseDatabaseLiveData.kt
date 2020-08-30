@@ -1,4 +1,4 @@
-package com.aryanganotra.jmcemanager.Firebase
+package com.aryanganotra.jmcemanager.firebaserealtimedata
 
 import android.annotation.SuppressLint
 import android.util.Log

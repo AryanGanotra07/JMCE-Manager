@@ -1,4 +1,4 @@
-package com.aryanganotra.jmcemanager.ui.main
+package com.aryanganotra.jmcemanager.activities.notes
 
 import android.app.Activity
 import android.content.Intent
@@ -10,13 +10,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aryanganotra.jmcemanager.R
-import com.aryanganotra.jmcemanager.activities.AddNoteActivity
-import com.aryanganotra.jmcemanager.activities.EditNoteActivity
 import com.aryanganotra.jmcemanager.adapters.NoteListAdapter
 import com.aryanganotra.jmcemanager.listeners.DeleteNoteCallback
 import com.aryanganotra.jmcemanager.listeners.NoteClickCallback
-import com.aryanganotra.jmcemanager.model.Course
 import com.aryanganotra.jmcemanager.model.Note
+import com.aryanganotra.jmcemanager.viewmodels.PageViewModel
 import kotlinx.android.synthetic.main.activity_notes_list.*
 
 class NotesListActivity : AppCompatActivity(), DeleteNoteCallback, NoteClickCallback {
@@ -102,7 +100,8 @@ class NotesListActivity : AppCompatActivity(), DeleteNoteCallback, NoteClickCall
     }
 
     override fun onNoteClick(note: Note) {
-            val i  = Intent(this@NotesListActivity,EditNoteActivity::class.java)
+            val i  = Intent(this@NotesListActivity,
+                EditNoteActivity::class.java)
         val bundle = Bundle()
         bundle.putParcelable("note",note)
         i.putExtra("note",bundle)

@@ -1,10 +1,8 @@
-package com.aryanganotra.jmcemanager.activities
+package com.aryanganotra.jmcemanager.activities.notes
 
 import android.Manifest
-import android.R.attr.data
 import android.app.Activity
 import android.app.DownloadManager
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
